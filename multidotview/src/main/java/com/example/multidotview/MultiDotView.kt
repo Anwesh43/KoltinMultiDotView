@@ -13,14 +13,16 @@ class MultiDotView (ctx : Context) : View(ctx) {
 
     private val paint : Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    override fun onDraw(canvas : Canvas) {
+    private val renderer : MDLRenderer = MDLRenderer(this)
 
+    override fun onDraw(canvas : Canvas) {
+        renderer.render(canvas, paint)
     }
 
     override fun onTouchEvent(event : MotionEvent) : Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-
+                renderer.handleTap()
             }
         }
         return true
@@ -88,6 +90,7 @@ class MultiDotView (ctx : Context) : View(ctx) {
             val l : Float = Math.min(w, h) * 0.4f
             val r : Float = Math.min(w, h) * 0.04f
             val rx : Float = Math.min(w, h) * 0.1f
+            paint.color = Color.WHITE
             canvas.save()
             canvas.translate(w/2, h/2)
             for (i in 0..1) {
