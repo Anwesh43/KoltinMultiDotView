@@ -31,7 +31,7 @@ class MultiDotView (ctx : Context) : View(ctx) {
 
     data class State(var prevScale : Float = 0f, var dir : Float = 0f, var j : Int = 0) {
 
-        val scales : Array<Float> = arrayOf(0f, 0f, 0f, 0f, 0f)
+        val scales : Array<Float> = arrayOf(0f, 0f, 0f, 0f, 0f, 0f)
 
         fun update(stopcb : (Float) -> Unit) {
             scales[j] += 0.1f * dir
@@ -99,10 +99,10 @@ class MultiDotView (ctx : Context) : View(ctx) {
                 canvas.rotate(i * 90f * state.scales[3])
                 for (k in 0..1) {
                     canvas.save()
-                    canvas.translate(l * (1 - 2 * k) * state.scales[4], 0f)
+                    canvas.translate(0f,l * (1 - 2 * k) * state.scales[4+i])
                     for (j in 0..2) {
                         canvas.save()
-                        canvas.translate(rx * (i - 1), 0f)
+                        canvas.translate(rx * (j - 1), 0f)
                         canvas.drawCircle(0f, 0f, r * state.scales[j], paint)
                         canvas.restore()
                     }
