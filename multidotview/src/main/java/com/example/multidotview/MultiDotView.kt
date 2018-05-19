@@ -79,4 +79,42 @@ class MultiDotView (ctx : Context) : View(ctx) {
             }
         }
     }
+
+    data class MultiDot(var i : Int, val state : State = State()) {
+
+        fun draw(canvas  : Canvas, paint : Paint) {
+            val w : Float = canvas.width.toFloat()
+            val h : Float = canvas.height.toFloat()
+            val l : Float = Math.min(w, h) * 0.4f
+            val r : Float = Math.min(w, h) * 0.04f
+            val rx : Float = Math.min(w, h) * 0.1f
+            canvas.save()
+            canvas.translate(w/2, h/2)
+            for (i in 0..1) {
+                canvas.save()
+                canvas.rotate(i * 90f * state.scales[3])
+                for (k in 0..1) {
+                    canvas.save()
+                    canvas.translate(l * (1 - 2 * k) * state.scales[4], 0f)
+                    for (j in 0..2) {
+                        canvas.save()
+                        canvas.translate(rx * (i - 1), 0f)
+                        canvas.drawCircle(0f, 0f, r * state.scales[j], paint)
+                        canvas.restore()
+                    }
+                    canvas.restore()
+                }
+                canvas.restore()
+            }
+            canvas.restore()
+        }
+
+        fun update(stopcb : (Float) -> Unit) {
+            state.update(stopcb)
+        }
+
+        fun startUpdating(startcb : () -> Unit) {
+            state.startUpdating(startcb)
+        }
+    }
 }
