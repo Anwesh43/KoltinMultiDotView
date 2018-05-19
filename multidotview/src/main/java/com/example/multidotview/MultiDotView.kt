@@ -4,6 +4,7 @@ package com.example.multidotview
  * Created by anweshmishra on 19/05/18.
  */
 
+import android.app.Activity
 import android.content.*
 import android.graphics.*
 import android.view.View
@@ -141,6 +142,14 @@ class MultiDotView (ctx : Context) : View(ctx) {
             mdl.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+        fun create(activity : Activity) : MultiDotView  {
+            val view : MultiDotView = MultiDotView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
