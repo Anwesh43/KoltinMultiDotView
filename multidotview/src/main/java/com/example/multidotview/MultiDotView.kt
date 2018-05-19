@@ -117,4 +117,27 @@ class MultiDotView (ctx : Context) : View(ctx) {
             state.startUpdating(startcb)
         }
     }
+
+    data class MDLRenderer(var view : MultiDotView) {
+
+        private val animator : Animator = Animator(view)
+
+        private val mdl : MultiDot = MultiDot(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(Color.parseColor("#212121"))
+            mdl.draw(canvas, paint)
+            animator.animate {
+                mdl.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            mdl.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
